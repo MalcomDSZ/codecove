@@ -3,56 +3,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>CodeCove Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel=""stylesheet">
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
 </head>
 
 <body>
-    <div class="sidebar">
+    <aside class="sidebar" role="navigation" aria-label="sidebar">
         <h2>CodeCove</h2>
-            <a href="#">🏠 Home</a>
-            <a href="#">🔥 Daily Challenges</a>
-            <a href="#">🛡️ CTF Arena</a>
-            <a href="#">🧠 AI Mentor</a>
-            <a href="#">📈 Leaderboard</a>
-            <a href="#">🎖️ Achievements</a>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="#">🏠 Home</a></li>
+                <li><a href="#">🔥 Daily Challenges</a></li>
+                <li><a href="#">🛡️ CTF Arena</a></li>
+                <li><a href="#">🧠 AI Mentor</a></li>
+                <li><a href="#">📈 Leaderboard</a></li>
+                <li><a href="#">🎖️ Achievements</a></li>
+            </ul>
+        </nav>
+    </aside>
    
-    <div class="main">
-        <div class="topbar">
-         <div>🌟 XP: 320 / 500</div>
-         <div>👤 Malcom</div>
-        </div>
+    <main class="main">
+        <header class="topbar">
+         <div id="xp-bar" aria-label="User XP">🌟 XP: 320 / 500</div>
+         <div id="user-display">👤 Malcom</div>
+        </header>
 
-        <div class="dashboard-grid">
-         <div class="card">
-            <h3>Daily Challenge</h3>
+        <section class="dashboard-grid">
+         <article class="card" id="daily-challenge">
+            <h3>🎯 Daily Challenge</h3>
             <p>Solve a bug in a Javascript loop within 5 minutes.</p>
-            <button>Start Challenge</button>
-         </div>
-        
-         <div class="card">
-            <h3>AI Mentor</h3>
-            <p>"Hint: Check if your loop exit condition is reached."</p>
-         </div>
-        </div>
+            <button id="start-btn">Start Challenge</button>
+         </article>
 
-        <div class="editor">
-         <!-- Editor placeholder -->
-         <pre><code>// Write your code here</code></pre>
-        </div>
+         <article class="card" id="ai-mentor">
+            <h3>🧠 AI Mentor</h3>
+            <p id="mentor-hint">"Hint: Check if your loop exit condition is reached."</p>
+         </article>
+        </section>
 
-        <div class="footer-grid">
-         <div class="card">
+        <section class="editor-section">
+            <label for="code-editor"><strong>💻 Code Editor</strong></label>
+            <textarea id="code-editor" rows="10" spellcheck="false">
+                // Write your code here
+                function loopFix() {
+                    for (let i = 0; i < 10; i++) {
+                        console.log(i);
+                    }
+                }
+            </textarea>
+        </section>
+
+        <section class="footer-grid">
+         <article class="card" id="leaderboard">
+            <h3>📈 Leaderboard</h3>
+            <ol>
+                <li>L0N3_C1PH3R - 500 XP</li>
+                <li>Trixie - 430 XP</li>
+            </ol>
+         </article>
+
+         <article class="card" id="achievements">
             <h3>🏆 Achievements</h3>
-            <p>🏅 First Blood<br>⚡ Speed Debugger</p>
-         </div>
-         </div>
-    </div>
-    <script src="js/main.js"></script>
+            <ul>
+                 <li>🏅 First Blood</li>
+                 <li>⚡ Speed Debugger</li>
+            </ul>
+         </article>
+        </section>
+    </main>
+
+    <script src="scripts/app.js"></script>
 </body>
 </html>
 
