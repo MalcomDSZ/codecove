@@ -1,41 +1,31 @@
+// scripts/app.js
+
+import { initEditor } from './editor.js';
+import { setupChallenge, validateChallenge } from './challenge.js';
+import { provideHint } from './mentor.js';
+import { initAgentProfile } from './user.js';
+import { updateXPDisplay } from './xp.js';
+import { showPopup } from './ui.js';
+
 document.addEventListener("DOMContentLoaded", () => {
-  const xpBar = document.getElementById('xp-bar');
-  const mentorHint = document.getElementById('mentor-hint');
-  const startButton = document.getElementById('start-btn');
+  initAgentProfile();
+  updateXPDisplay();
+  initEditor();
+  provideHint();
 
-  let userXP = 320;
-  const xpGoal = 500;
+  const startBTN = document.getElementById("start-btn");
+  const submitBTN = document.getElementById("submit-btn");
 
-  startButton.addEventListener('click', () => {
-    simulateChallengeResult();
-  });
-
-  function simulateChallengeResult() {
-    const gainedXP = Math.floor(Math.random() * 80) + 20;
-    userXP += gainedXP;
-    if (userXP >= xpGoal) {
-      userXP = xpGoal;
-      alert('🎉 Level up! You’ve reached the XP goal!');
-    } else {
-      alert(`✅ Challenge completed! +${gainedXP} XP`);
-    }
-    updateXPDisplay();
-    giveHint();
+  if (startBTN) {
+    startBTN.addEventListener("click", () => {
+      setupChallenge();
+      showPopup("🎯 Challenge started! Get typing, Agent!", "info");
+    });
   }
 
-  function updateXPDisplay() {
-    xpBar.textContent = `🌟 XP: ${userXP} / ${xpGoal}`;
-  }
-
-  function giveHint() {
-    const hints = [
-      'Hint: Watch your loop boundaries.',
-      'Hint: Think recursion vs iteration.',
-      'Hint: Keep functions small and focused.',
-      'Hint: Off-by-one errors are common.',
-      'Hint: Use console.log to debug your loop.'
-    ];
-    const randomHint = hints[Math.floor(Math.random() * hints.length)];
-    mentorHint.textContent = `🧠 ${randomHint}`;
+  if (submitBTN) {
+    submitBTN.addEventListener("click", () => {
+      validateChallenge();
+    });
   }
 });
