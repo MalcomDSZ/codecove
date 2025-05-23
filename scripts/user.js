@@ -1,14 +1,14 @@
 // scripts/user.js
 
 export function initAgentProfile() {
-  let agentName = localStorage.getItem("agentName");
+  const storedName = localStorage.getItem("agentName");
+  const userDisplay = document.getElementById("user-display");
 
-  if (!agentName) {
-    agentName = prompt("Welcome Agent. Enter your code name:");
-    if (!agentName) agentName = "Agent_X";
+  if (storedName) {
+    userDisplay.textContent = `👤 ${storedName}`;
+  } else {
+    const agentName = prompt("Enter your Agent name:", "Agent_X") || "Agent_X";
     localStorage.setItem("agentName", agentName);
+    userDisplay.textContent = `👤 ${agentName}`;
   }
-
-  const display = document.getElementById("user-display");
-  if (display) display.textContent = `👤 ${agentName}`;
 }

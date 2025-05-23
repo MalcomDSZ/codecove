@@ -1,16 +1,16 @@
 // scripts/xp.js
 
-let xp = parseInt(localStorage.getItem("agentXP")) || 0;
+let userXP = 0;
+const xpTarget = 500;
 
-export function addXP(amount) {
-  xp += amount;
-  localStorage.setItem("agentXP", xp);
+export function addXP(points) {
+  userXP += points;
   updateXPDisplay();
 }
 
 export function updateXPDisplay() {
   const xpBar = document.getElementById("xp-bar");
   if (xpBar) {
-    xpBar.textContent = `🌟 XP: ${xp} / 500`;
+    xpBar.textContent = `🌟 XP: ${userXP} / ${xpTarget}`;
   }
 }
