@@ -1,76 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CodeCove Dashboard</title>
-  <meta name="description" content="CodeCove - Interactive Coding Challenge Platform" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css" />
-</head>
-<body>
-  <aside class="sidebar" role="complementary" aria-label="Main sidebar Navigation">
-    <h2>CodeCove</h2>
-    <nav>
-      <ul>
-        <li><a href="#">🏠 Home</a></li>
-        <li><a href="#">🔥 Daily Challenges</a></li>
-        <li><a href="#">🛡️ CTF Arena</a></li>
-        <li><a href="#">🧠 AI Mentor</a></li>
-        <li><a href="#">📈 Leaderboard</a></li>
-        <li><a href="#">🎖️ Achievements</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeCove Dashboard</title>
+    <meta
+      name="description"
+      content="CodeCove - Interactive Coding Challenge Platform"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <aside
+      class="sidebar"
+      role="complementary"
+      aria-label="Main sidebar Navigation"
+    >
+      <h2>CodeCove</h2>
+      <nav>
+        <ul>
+          <li><a href="#">🏠 Home</a></li>
+          <li><a href="#">🔥 Daily Challenges</a></li>
+          <li><a href="#">🛡️ CTF Arena</a></li>
+          <li><a href="#">🧠 AI Mentor</a></li>
+          <li><a href="#">📈 Leaderboard</a></li>
+          <li><a href="#">🎖️ Achievements</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <main class="main">
-    <header class="topbar">
-      <div id="xp-bar" aria-label="User XP">🌟 XP: 0 / 500</div>
-      <div id="user-display">👤 Agent_X</div>
-    </header>
+    <main class="main">
+      <header class="topbar">
+        <div id="xp-bar" aria-label="User XP">🌟 XP: 0 / 500</div>
+        <div id="user-display">👤 Agent_X</div>
+      </header>
 
-    <section class="dashboard-grid">
-      <article class="card" id="daily-challenge">
-        <h3>🎯 Daily Challenge</h3>
-        <p>Solve a bug in a JavaScript loop within 5 minutes.</p>
-        <button id="start-btn" aria-label="Start daily challenge">Start Challenge</button>
-      </article>
+       <section class="challenge-tabs">
+        <div class="tab-buttons">
+          <button class="tab-btn" data-tab="daily">🔥 Daily</button>
+          <button class="tab-btn" data-tab="weekly">📆 Weekly</button>
+          <button class="tab-btn" data-tab="hardcore">💀 Hardcore</button>
+        </div>
+        <div class="tab-content" id="challenge-container">
+          <!-- Challenges will be dynamically inserted here -->
+        </div>
+      </section>
 
-      <article class="card" id="ai-mentor">
-        <h3>🧠 AI Mentor</h3>
-        <p id="mentor-hint">"Hint: Check if your loop exit condition is reachable."</p>
-      </article>
-    </section>
 
-    <section class="editor-section">
-      <label for="code-editor"><strong>💻 Code Editor</strong></label>
-      <div id="code-editor" class="editor"></div>
+      <section class="dashboard-grid">
+        <article class="card" id="daily-challenge">
+          <h3>🎯 Daily Challenge</h3>
+          <p>Solve a bug in a JavaScript loop within 5 minutes.</p>
+          <button id="start-btn" aria-label="Start daily challenge">
+            Start Challenge
+          </button>
+        </article>
+
+        <article class="card" id="ai-mentor">
+          <h3>🧠 AI Mentor</h3>
+          <p id="mentor-hint">
+            "Hint: Check if your loop exit condition is reachable."
+          </p>
+        </article>
+      </section>
+
+      <section class="editor-section">
+        <label for="code-editor"><strong>💻 Code Editor</strong></label>
+        <div id="code-editor" class="editor"></div>
 
         <button id="submit-btn">🚀 Submit Code</button>
-        
-    </section>
+      </section>
 
-    <section class="footer-grid">
-      <article class="card" id="leaderboard">
-        <h3>📈 Leaderboard</h3>
-        <ol>
-          <li>Agent_Malcom - 500 XP</li>
-          <li>Agent_Trixie - 430 XP</li>
-        </ol>
-      </article>
+      <section class="footer-grid">
+        <article class="card" id="leaderboard">
+          <h3>📈 Leaderboard</h3>
+          <ol>
+            <li>Agent_Malcom - 500 XP</li>
+            <li>Agent_Trixie - 430 XP</li>
+          </ol>
+        </article>
 
-      <article class="card" id="achievements">
-        <h3>🏆 Achievements</h3>
-        <ul>
-          <li>🏅 First Blood</li>
-          <li>⚡ Speed Debugger</li>
-        </ul>
-      </article>
-    </section>
-  </main>
+        <article class="card" id="achievements">
+          <h3>🏆 Achievements</h3>
+          <ul>
+            <li>🏅 First Blood</li>
+            <li>⚡ Speed Debugger</li>
+          </ul>
+        </article>
+      </section>
+    </main>
 
-  <script type="module" src="scripts/app.js"></script>
-  <div id="toast-container" aria-live="polite" aria-atomic="true" class="toast-container"></div>
-
+    <script type="module" src="scripts/app.js"></script>
+    <div
+      id="toast-container"
+      aria-live="polite"
+      aria-atomic="true"
+      class="toast-container"
+    ></div>
   </body>
 </html>

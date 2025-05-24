@@ -1,7 +1,7 @@
 /* styles/main.css */
 
 body {
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   margin: 0;
   padding: 0;
   background-color: #111;
@@ -58,7 +58,36 @@ body {
   border-bottom: 1px solid #444;
 }
 
-.dashboard-grid, .footer-grid {
+.tab-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.tab-btn {
+  padding: 0.7em 1.5em;
+  background: #20252b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tab-btn.active {
+  background: #0af;
+  color: #fff;
+}
+
+#challenge-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+
+.dashboard-grid,
+.footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
@@ -124,7 +153,7 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   max-width: 320px;
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
 }
 
 .toast {
@@ -132,7 +161,7 @@ button:hover {
   border-radius: 6px;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   opacity: 0;
   transform: translateX(100%);
   animation-fill-mode: forwards;
@@ -182,8 +211,6 @@ button:hover {
   animation-name: slideOutRight;
 }
 
-
-
 /* styles/main.css */
 
 .popup-message {
@@ -195,7 +222,7 @@ button:hover {
   color: #fff;
   padding: 12px 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   font-size: 16px;
   opacity: 0;
   transition: all 0.3s ease;
@@ -218,4 +245,3 @@ button:hover {
 .popup-message.info {
   background-color: #007bff;
 }
-
