@@ -24,3 +24,8 @@ export function setupChallenge() {
 export function getCurrentChallenge() {
   return challenges[currentChallengeIndex];
 }
+
+export function loadNextChallenge() {
+  currentChallengeIndex = (currentChallengeIndex + 1) % challenges.length;
+  return getCurrentChallenge();
+}
