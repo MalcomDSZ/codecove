@@ -6,7 +6,23 @@ import { showHint } from "./mentor.js";
 
 let currentChallengeIndex = 0;
 
+export function getCurrentChallenge() {
+  return challenges[currentChallengeIndex];
+}
+
 export function setupChallenge() {
+  const challenge = getCurrentChallenge();
+
+// Update the challenge display UI
+  const titleElem = document.getElementById("challenge-title");
+  const descElem = document.getElementById("challenge-description");
+
+  if (titleElem && descElem && challenge) {
+    titleElem.textContent = challenge.title;
+    descElem.textContent = challenge.description;
+  }
+}
+
   const startBTN = document.getElementById("start-btn");
   if (startBTN) {
     startBTN.addEventListener("click", () => {
@@ -19,7 +35,7 @@ export function setupChallenge() {
       }
     });
   }
-}
+  
 
 export function getCurrentChallenge() {
   return challenges[currentChallengeIndex];

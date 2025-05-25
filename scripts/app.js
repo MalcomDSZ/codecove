@@ -1,84 +1,81 @@
 // scripts/app.js
 
-import { initEditor, loadChallengeInEditor } from "./editor.js";
-import {
-  setupChallenge,
-  getCurrentChallenge,
-  loadNextChallenge,
-} from "./challenge.js";
-import { showHint } from "./mentor.js";
-import { updateUI } from "./ui.js";
-import { initAgentProfile } from "./user.js";
-import { updateXPDisplay, addXP } from "./xp.js";
-import { showToast } from "./toast.js";
+const primaryNavItems = document.querySelectorAll('#primary-nav .nav-item');
+const secondaryNavItems = document.querySelectorAll('#secondary-nav .nav-item');
+const mainContent = document.getElementById('page-content');
+const terminalSection = document.getElementById('terminal');
+const terminalOutput = document.getElementById('terminal-output');
+const terminalInput = document.getElementById('terminal-input');
 
-let challengeCompleted = false;
+function clearActive(navItems) {
+  navItems.forEach(item => item.classList.remove('active'));
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  initAgentProfile();
-  updateXPDisplay();
-  initEditor();
-  setupChallenge();
-  showHint("Press start to get your first mission.");
-  updateUI();
-  showToast("👋 Welcome Agent! Ready for action?", "info");
-
-  const startBTN = document.getElementById("start-btn");
-  const submitBTN = document.getElementById("submit-btn");
-
-  if (startBTN) {
-    startBTN.addEventListener("click", () => {
-      const challenge = loadNextChallenge();
-      if (challenge) {
-        loadChallengeInEditor(challenge.starterCode);
-        showHint(challenge.hint);
-        showToast(
-          `🎯 ${challenge.title} started! Code like the wind, Agent!`,
-          "info",
-        );
-        challengeCompleted = false;
-      } else {
-        showToast("⚠️ No more challenges available right now.", "warning");
-      }
-    });
+function loadPage(page, fromPanel) {
+  // Clear active states
+  if (fromPanel === 'primary') {
+    clearActive(primaryNavItems);
+  } else {
+    clearActive(secondaryNavItems);
   }
 
-  if (submitBTN) {
-    submitBTN.addEventListener("click", () => {
-      const userCode = window.editor.getValue();
-      const challenge = getCurrentChallenge();
+  // Set active
+  let navItems = fromPanel === 'primary' ? primaryNavItems : secondaryNavItems;
+  navItems.forEach(item => {
+    if (item.dataset.page === page) {
+      item.classList.add('active');
+    }
+  });
 
-      if (!challenge) {
-        showToast("❌ No active challenge. Press Start first!", "error");
-        return;
-      }
+  // Clear terminal output and input on page change
+  terminalOutput.textContent = '';
+  terminalInput.value = '';
 
-      if (challengeCompleted) {
-        showToast("⚠️ You've already completed this challenge.", "info");
-        return;
-      }
+  // Logic to load page content and show/hide terminal
+  if (page === 'learn' || page === 'ctf') {
+    // Show terminal when entering Learn or CTF
+    terminalSection.classList.remove('hidden');
+    mainContent.style.paddingBottom = '10px';
+  } else {
+    terminalSection.classList.add('hidden');
+    mainContent.style.paddingBottom = '2rem';
+  }
 
-      if (!userCode.trim()) {
-        showToast("❌ Please enter your code first.", "error");
-        return;
-      }
+  // Update main content area (placeholder)
+  mainContent.innerHTML = `<h1>${page.charAt(0).toUpperCase() + page.slice(1)}</h1><p>This is the ${page} section.</p>`;
+  if (!terminalSection.classList.contains('hidden')) {
+    mainContent.appendChild(terminalSection);
+  }
+}
 
-      try {
-        // Safely create a user function and execute it
-        const userFunction = new Function(userCode + "; return null;");
-        userFunction();
+// Handle nav clicks for primary nav
+primaryNavItems.forEach(item => {
+  item.addEventListener('click', () => {
+    loadPage(item.dataset.page, 'primary');
+  });
+});
 
-        const testPassed = challenge.test();
-        if (testPassed) {
-          showToast("✅ Correct! Mission accomplished.", "success");
-          addXP(50);
-          challengeCompleted = true;
-        } else {
-          showToast("❌ Incorrect result. Try again.", "error");
-        }
-      } catch (error) {
-        showToast(`❌ Error: ${error.message}`, "error");
-      }
-    });
+// Handle nav clicks for secondary nav
+secondaryNavItems.forEach(item => {
+  item.addEventListener('click', () => {
+    loadPage(item.dataset.page, 'secondary');
+  });
+});
+
+// Terminal input handler (example echo command)
+terminalInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    const command = terminalInput.value.trim();
+    if (command) {
+      terminalOutput.textContent += `> ${command}\n`;
+      // Simple echo for now, extend with real command parsing later
+      terminalOutput.textContent += `Executed: ${command}\n\n`;
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      terminalInput.value = '';
+    }
   }
 });
+
+// Initialize with Dashboard page
+loadPage('dashboard', 'primary');
